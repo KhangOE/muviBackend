@@ -20,13 +20,14 @@ namespace movie.Controllers
         private IUserRepository _userRepository;
         private IMapper _mapper;
         private DataContext _dataContext;
-
-        public UserController(IUserRepository userRepository, IMapper mapper,DataContext dataContext)
+        private IConfiguration _config;
+        public UserController(IUserRepository userRepository, IMapper mapper,DataContext dataContext,IConfiguration configuration)
 
         {
             _dataContext = dataContext;
             _userRepository = userRepository;
             _mapper = mapper;
+            _config = configuration;
 
         }
 
@@ -78,7 +79,7 @@ namespace movie.Controllers
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-                "1234 sdf a df asdf s sdf sdf s d d"));
+               _config["Jwt:Secret"]));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

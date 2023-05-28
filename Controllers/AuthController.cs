@@ -55,8 +55,7 @@ namespace movie.Controllers
                 new Claim(ClaimTypes.Role, "Admin"),
             };
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-                "1234 sdf a df asdf s sdf sdf s d d"));
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
